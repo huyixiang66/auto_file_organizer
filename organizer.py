@@ -1,6 +1,7 @@
 import os
 import shutil
 import argparse
+from datetime import datetime
 
 # 定义常见文件类型对应的文件夹
 FILE_TYPES = {
@@ -38,10 +39,41 @@ def organize_files(folder, dry_run=True):
                 shutil.move(src_path, dest_path)
                 print(f"Moved: {src_path} -> {dest_path}")
 
+def organize_by_date(folder, dry_run=True):
+    """按文件修改日期（YYYY-MM）整理"""
+    for root, dirs, files in os.walk(folder):
+        if os.path.abspath(root) != os.path.abspath(folder):
+            continue
+
+        for file in files:
+            src_path = os.path.join(root, file)
+
+            # 获取文件修改时间
+            mtime = os.path.getmtime(src_path)
+            date_str = datetime.fromtimestamp(mtime).strftime("%Y-%m")
+
+            dest_folder = os.path.join(folder, date_str)
+            dest_path = os.path.join(dest_folder, file)
+
+            if dry_run:
+                print(f"[DRY-RUN] {src_path} -> {dest_path}")
+            else:
+                os.makedirs(dest_folder, exist_ok=True)
+                shutil.move(src_path, dest_path)
+                print(f"Moved: {src_path} -> {dest_path}")
+
+
 def main():
     parser = argparse.ArgumentParser(description="Auto File Organizer")
     parser.add_argument('--src', required=True, help='Folder to organize')
     parser.add_argument('--dry-run', action='store_true', help='Preview changes without moving files')
+    parser.add_argument(
+        '--by',
+        choices=['type', 'date'],
+        default='type',
+        help='Organize files by type or date'
+    )
+
     args = parser.parse_args()
 
     folder_path = args.src
@@ -50,7 +82,11 @@ def main():
         return
 
     print(f"正在整理 {folder_path}（dry-run={args.dry_run}）")
-    organize_files(folder_path, dry_run=args.dry_run)
+    if args.by == 'type':
+        organize_files(folder_path, dry_run=args.dry_run)
+    elif args.by == 'date':
+        organize_by_date(folder_path, dry_run=args.dry_run)
+
 
 if __name__ == "__main__":
     main()
