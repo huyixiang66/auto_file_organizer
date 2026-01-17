@@ -38,7 +38,7 @@ auto_file_organizer/
 ### 1️⃣ Clone the repository
 
 ```bash
-git clone https://github.com/<your-username>/auto_file_organizer.git
+git clone https://github.com/<huyixiang66>/auto_file_organizer.git
 cd auto_file_organizer
 ```
 
