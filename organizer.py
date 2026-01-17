@@ -2,6 +2,14 @@ import os
 import shutil
 import argparse
 from datetime import datetime
+import logging
+
+logging.basicConfig(
+    filename="organizer.log",
+    level=logging.INFO,
+    format="%(asctime)s - %(levelname)s - %(message)s"
+)
+
 
 # 定义常见文件类型对应的文件夹
 FILE_TYPES = {
@@ -33,11 +41,16 @@ def organize_files(folder, dry_run=True):
             dest_path = os.path.join(dest_folder, file)
 
             if dry_run:
-                print(f"[DRY-RUN] {src_path} -> {dest_path}")
+                msg = f"DRY-RUN: {src_path} -> {dest_path}"
+                print(msg)
+                logging.info(msg)
+
             else:
                 os.makedirs(dest_folder, exist_ok=True)
                 shutil.move(src_path, dest_path)
-                print(f"Moved: {src_path} -> {dest_path}")
+                msg = f'Moved: {src_path} -> {dest_path}'
+                print(msg)
+                logging.info(msg)
 
 def organize_by_date(folder, dry_run=True):
     """按文件修改日期（YYYY-MM）整理"""
@@ -56,11 +69,15 @@ def organize_by_date(folder, dry_run=True):
             dest_path = os.path.join(dest_folder, file)
 
             if dry_run:
-                print(f"[DRY-RUN] {src_path} -> {dest_path}")
+                msg = f"DRY-RUN: {src_path} -> {dest_path}"
+                print(msg)
+                logging.info(msg)
             else:
                 os.makedirs(dest_folder, exist_ok=True)
                 shutil.move(src_path, dest_path)
-                print(f"Moved: {src_path} -> {dest_path}")
+                msg = f"Moved: {src_path} -> {dest_path}"
+                print(msg)
+                logging.info(msg)
 
 
 def main():
@@ -73,10 +90,9 @@ def main():
         default='type',
         help='Organize files by type or date'
     )
-
     args = parser.parse_args()
-
     folder_path = args.src
+    logging.info(f"Start organizing folder: {folder_path} (by={args.by}, dry_run={args.dry_run})")
     if not os.path.exists(folder_path):
         print(f"错误：路径 {folder_path} 不存在")
         return
