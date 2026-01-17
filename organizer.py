@@ -82,26 +82,46 @@ def organize_by_date(folder, dry_run=True):
 
 def main():
     parser = argparse.ArgumentParser(description="Auto File Organizer")
-    parser.add_argument('--src', required=True, help='Folder to organize')
-    parser.add_argument('--dry-run', action='store_true', help='Preview changes without moving files')
+
+    parser.add_argument(
+        '--src',
+        required=True,
+        help='Folder to organize'
+    )
+    parser.add_argument(
+        '--dry-run',
+        action='store_true',
+        help='Preview changes without moving files'
+    )
     parser.add_argument(
         '--by',
         choices=['type', 'date'],
         default='type',
         help='Organize files by type or date'
     )
+
+    # ✅ 先解析参数
     args = parser.parse_args()
+
+    # ✅ 再把命令行参数“落地”为变量
     folder_path = args.src
-    logging.info(f"Start organizing folder: {folder_path} (by={args.by}, dry_run={args.dry_run})")
+
+    logging.info(
+        f"Start organizing folder: {folder_path} "
+        f"(by={args.by}, dry_run={args.dry_run})"
+    )
+
     if not os.path.exists(folder_path):
         print(f"错误：路径 {folder_path} 不存在")
         return
 
     print(f"正在整理 {folder_path}（dry-run={args.dry_run}）")
+
     if args.by == 'type':
         organize_files(folder_path, dry_run=args.dry_run)
     elif args.by == 'date':
         organize_by_date(folder_path, dry_run=args.dry_run)
+
 
 
 if __name__ == "__main__":
