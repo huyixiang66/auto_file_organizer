@@ -1,26 +1,3 @@
-非常好，这一步**含金量极高** 👍
-我会直接给你一份 **「GitHub 高赞项目风格」README 模板**，并且**完全贴合你现在这个项目**。
-你只需要 **整体复制 → 粘到 README.md → commit**。
-
----
-
-## ✅ 高赞 README 的核心特征（你心里先有数）
-
-一个让人愿意 ⭐ Star 的 README，一定做到：
-
-1. **一眼知道是干嘛的**
-2. **3 秒能跑起来**
-3. **示例清晰，不废话**
-4. **有工程意识（dry-run / logging）**
-5. **体现“作者在成长”**
-
-下面这份，全部满足。
-
----
-
-## ✅ 直接可用的 README.md（完整版）
-
-````md
 # Auto File Organizer 📂
 
 A simple and practical **Python command-line tool** to automatically organize files in a folder  
@@ -133,9 +110,8 @@ No files are actually moved in `--dry-run` mode.
 
 This project is for learning and personal use.
 
-````
 
----
+
 
 
 
