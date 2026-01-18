@@ -1,0 +1,12 @@
+README.md
+pyproject.toml
+setup.py
+auto_file_organizer/__init__.py
+auto_file_organizer/organizer.py
+auto_file_organizer/utils.py
+auto_file_organizer.egg-info/PKG-INFO
+auto_file_organizer.egg-info/SOURCES.txt
+auto_file_organizer.egg-info/dependency_links.txt
+auto_file_organizer.egg-info/entry_points.txt
+auto_file_organizer.egg-info/top_level.txt
+test/test_organizer.py

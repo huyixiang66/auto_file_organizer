@@ -99,10 +99,24 @@ def main():
         default='type',
         help='Organize files by type or date'
     )
+    parser.add_argument(
+    '--version',
+    action='version',
+    version='auto-file-organizer 0.1.0'
+)
+    parser.add_argument(
+    '--verbose',
+    action='store_true',
+    help='Enable verbose logging'
+)
 
     # ✅ 先解析参数
     args = parser.parse_args()
-
+    log_level = logging.DEBUG if args.verbose else logging.INFO
+    logging.basicConfig(
+        level=log_level,
+        format='[%(levelname)s] %(message)s'
+    )
     # ✅ 再把命令行参数“落地”为变量
     folder_path = args.src
 
